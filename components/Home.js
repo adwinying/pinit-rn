@@ -1,24 +1,19 @@
 import React from 'react'
-import { ScrollView, Text } from 'react-native'
+import { Text } from 'react-native'
 import { connect } from 'react-redux'
 import { getAllPins } from '../utils/api'
 import { fetchPins } from '../actions'
 
-import Card from './Card'
+import CardList from './CardList'
 
 class Home extends React.Component {
 	componentDidMount() {
 		this.props.fetchPins()
-		// console.log(this.props)
 	}
 
 	render() {
 		return (
-			<ScrollView>
-				{this.props.pins.map((pin) => 
-					<Card key={pin._id} pin={pin} />
-				)}
-			</ScrollView>
+			<CardList pins={this.props.pins}></CardList>
 		)
 	}
 }

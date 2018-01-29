@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
-import { primaryColor } from '../utils/colors'
+import { primaryColor, white } from '../utils/colors'
 
 export default class Card extends React.Component {
 
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     padding: 8,
-    backgroundColor: '#eee',
+    backgroundColor: white,
   },
   caption: {
     padding: 8,
