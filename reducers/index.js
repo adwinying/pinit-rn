@@ -2,6 +2,7 @@ const initialState = {
 	pins: [],
 	isFetching: false,
 	hasError: false,
+	profile: undefined,
 }
 
 export default function reducers(state = initialState, action) {
@@ -34,6 +35,16 @@ export default function reducers(state = initialState, action) {
 				isFetching: false,
 				hasError: true,
 				errMessage: "Please try again later",
+			}
+
+		case "FETCH_PROFILE_FULFILLED":
+			if (action.payload.success) {
+				return {
+					...state,
+					profile: action.payload.user,
+				}
+			} else {
+				return state
 			}
 
 		default:

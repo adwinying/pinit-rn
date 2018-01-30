@@ -1,13 +1,32 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getAllPins } from '../utils/api'
-import { fetchPins } from '../actions'
+import { FontAwesome } from '@expo/vector-icons'
+import { fetchPins, fetchProfile } from '../actions'
 
+import RightNavi from './RightNavi'
 import CardList from './CardList'
 
+import { primaryColor, white } from '../utils/colors'
+
 class Home extends React.Component {
+	static navigationOptions = ({ navigation }) => {
+	  const handleActionButton = () => {
+  		navigation.navigate('Login')
+  	}
+
+    return {
+    	headerTitle: <FontAwesome name="thumb-tack" size={18} color="white"> PinIt</FontAwesome>,
+    	headerTintColor: white,
+    	headerStyle: {
+    	  backgroundColor: primaryColor,
+    	},
+    	headerRight: <RightNavi onPress={handleActionButton}>Login</RightNavi>,
+    }
+  }
+
 	componentDidMount() {
 		this.props.fetchPins()
+    this.props.fetchProfile()
 	}
 
 	render() {
@@ -33,7 +52,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		fetchPins: () => dispatch(fetchPins())
+		fetchPins: () => dispatch(fetchPins()),
+    fetchProfile: () => dispatch(fetchProfile()),
 	}
 }
 

@@ -4,3 +4,10 @@ export async function getAllPins() {
 
 	return json
 }
+
+export async function getProfile() {
+	const res = await fetch("http://pins.nodeapp.iadw.in/api/auth/profile")
+	const json = await res.json()
+
+	return json
+}
