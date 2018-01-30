@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text } from 'react-native'
 import { connect } from 'react-redux'
 import { getAllPins } from '../utils/api'
 import { fetchPins } from '../actions'
@@ -13,7 +12,11 @@ class Home extends React.Component {
 
 	render() {
 		return (
-			<CardList pins={this.props.pins}></CardList>
+			<CardList 
+				pins={this.props.pins} 
+				isFetching={this.props.isFetching}
+				fetchPins={this.props.fetchPins}
+			/>
 		)
 	}
 }
