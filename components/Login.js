@@ -1,20 +1,31 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { WebView } from 'react-native'
+import { fetchProfile } from '../actions'
 
 import { primaryColor, white } from '../utils/colors'
 
-export default class Login extends React.Component {
-	static navigationOptions = {
-    headerTitle: 'Login',
-    headerTintColor: white,
-    headerStyle: {
-      backgroundColor: primaryColor,
-    },
+import NaviButton from './NaviButton'
+
+class Login extends React.Component {
+	static navigationOptions = ({ navigation }) => {
+    const handleCancel = () => {
+      navigation.goBack()
+    }
+    
+    return {
+      headerTitle: 'Login',
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: primaryColor,
+      },
+      headerLeft: <NaviButton onPress={handleCancel}>Cancel</NaviButton>
+    }
   }
 
   handleNavigationStateChange = (state) => {
     if (state.url === "http://pins.nodeapp.iadw.in/") {
-      console.log("Logged In?")
+      this.props.fetchProfile()
       this.props.navigation.goBack()
     }
   }
@@ -28,3 +39,11 @@ export default class Login extends React.Component {
     )
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchProfile: () => dispatch(fetchProfile()),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Login)

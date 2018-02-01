@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { FontAwesome } from '@expo/vector-icons'
 import { fetchPins, fetchProfile } from '../actions'
 
-import RightNavi from './RightNavi'
+import NaviButton from './NaviButton'
 import CardList from './CardList'
 
 import { primaryColor, white } from '../utils/colors'
@@ -20,7 +20,7 @@ class Home extends React.Component {
     	headerStyle: {
     	  backgroundColor: primaryColor,
     	},
-    	headerRight: <RightNavi onPress={handleActionButton}>Login</RightNavi>,
+    	headerRight: <NaviButton onPress={handleActionButton}>Login</NaviButton>,
     }
   }
 
@@ -35,18 +35,20 @@ class Home extends React.Component {
 				pins={this.props.pins} 
 				isFetching={this.props.isFetching}
 				fetchPins={this.props.fetchPins}
+        user={this.props.profile}
 			/>
 		)
 	}
 }
 
 function mapStateToProps(state) {
-	const { pins, isFetching, hasError } = state
+	const { pins, isFetching, hasError, profile } = state
 
 	return {
 		pins,
 		isFetching,
-		hasError
+		hasError,
+    profile,
 	}
 }
 

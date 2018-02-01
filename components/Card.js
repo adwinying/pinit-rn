@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
-import { primaryColor, white } from '../utils/colors'
+import { primaryColor, white, red } from '../utils/colors'
 
 export default class Card extends React.Component {
 
@@ -44,6 +44,10 @@ export default class Card extends React.Component {
     const actualPinImageHeight = this.state.pinImageHeight / 
       this.state.pinImageWidth * mainContentWidth
 
+    const buttonOpacity = () => {
+      return pin.didLiked ? 0.5 : 1
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.card}>
@@ -57,12 +61,23 @@ export default class Card extends React.Component {
           <View style={styles.actionBar}>
             <Image source={{ uri: pin.owner.profileImageURL} }
               style={styles.profileImage} />
-            <TouchableOpacity style={styles.likeButton}>
-              <Text style={styles.likeButtonText}>
-                <FontAwesome name="star" size={16} />
-                { ' ' + pin.likedBy.length }
-              </Text>
-            </TouchableOpacity>
+            <View style={styles.actionButtons} >
+              { pin.isOwner && <TouchableOpacity
+                style={styles.delButton} 
+                onPress={this.props.handleDelete} >
+                <Text style={styles.buttonText}>
+                  <FontAwesome name="trash" size={16} />
+                </Text>
+              </TouchableOpacity> }
+              <TouchableOpacity 
+                style={[styles.likeButton, { opacity: buttonOpacity() }]}
+                onPress={this.props.handleLike} >
+                <Text style={styles.buttonText}>
+                  <FontAwesome name="star" size={16} />
+                  { ' ' + pin.likedBy.length }
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -100,13 +115,24 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  actionButtons: {
+    flexDirection: 'row',
+  },
   likeButton: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: primaryColor,
+    marginLeft: 8,
   },
-  likeButtonText: {
+  delButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: red,
+    padding: 8,
+  },
+  buttonText: {
     padding: 8,
     color: "white",
     fontSize: 18,
