@@ -64,14 +64,14 @@ export default class Card extends React.Component {
             <View style={styles.actionButtons} >
               { pin.isOwner && <TouchableOpacity
                 style={styles.delButton} 
-                onPress={this.props.handleDelete} >
+                onPress={() => {this.props.handleDelete(pin)}} >
                 <Text style={styles.buttonText}>
                   <FontAwesome name="trash" size={16} />
                 </Text>
               </TouchableOpacity> }
               <TouchableOpacity 
                 style={[styles.likeButton, { opacity: buttonOpacity() }]}
-                onPress={this.props.handleLike} >
+                onPress={() => {this.props.handleLike(pin)}} >
                 <Text style={styles.buttonText}>
                   <FontAwesome name="star" size={16} />
                   { ' ' + pin.likedBy.length }

@@ -8,12 +8,12 @@ export default class CardList extends React.Component {
 		this.props.fetchPins()
 	}
 
-	handleLikeButton = () => {
-		console.log('like button toggled')
+	handleLikeButton = (pin) => {
+		console.log('like button toggled', pin)
 	}
 
-	handleDeleteButton = () => {
-		console.log('delete button pressed')
+	handleDeleteButton = (pin) => {
+		console.log('delete button pressed', pin)
 	}
 
 	render() {
