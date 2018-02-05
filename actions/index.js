@@ -13,3 +13,10 @@ export function fetchProfile() {
 		payload: api.getProfile(),
 	}
 }
+
+export function updatePin(pin) {
+	return {
+		type: "UPDATE_PIN",
+		payload: api.updatePin(pin),
+	}
+}

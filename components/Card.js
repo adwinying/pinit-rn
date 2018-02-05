@@ -70,9 +70,9 @@ export default class Card extends React.Component {
                 </Text>
               </TouchableOpacity> }
               <TouchableOpacity 
-                style={[styles.likeButton, { opacity: buttonOpacity() }]}
+                style={styles.likeButton}
                 onPress={() => {this.props.handleLike(pin)}} >
-                <Text style={styles.buttonText}>
+                <Text style={[styles.buttonText, styles.likeButtonText, { opacity: pin.didLiked ? 0.5 : 1.0 }]}>
                   <FontAwesome name="star" size={16} />
                   { ' ' + pin.likedBy.length }
                 </Text>
@@ -122,8 +122,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: primaryColor,
+    // backgroundColor: primaryColor,
     marginLeft: 8,
+  },
+  likeButtonText: {
+    paddingTop: 14,
+    backgroundColor: primaryColor, 
+    height: 50,
   },
   delButton: {
     display: 'flex',

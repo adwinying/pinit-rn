@@ -1,15 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native'
+import { fetchPins, updatePin } from '../actions'
 
 import Card from './Card'
 
-export default class CardList extends React.Component {
+class CardList extends React.Component {
 	handleRefresh = () => {
 		this.props.fetchPins()
 	}
 
 	handleLikeButton = (pin) => {
-		console.log('like button toggled', pin)
+		console.log('like button toggled')
+    const updatedPin = {
+      ...pin,
+      likedBy: pin.didLiked ? 
+        pin.likedBy.filter(id => id !== this.props.user._id) :
+        [...pin.likedBy, this.props.user._id]
+    }
+
+    this.props.updatePin(updatedPin)
 	}
 
 	handleDeleteButton = (pin) => {
@@ -61,3 +71,22 @@ const styles = StyleSheet.create({
 		padding: 20,
 	},
 })
+
+function mapStateToProps(state) {
+  const { isFetching, hasError, profile } = state
+
+  return {
+    isFetching,
+    hasError,
+    user: profile,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchPins: () => dispatch(fetchPins()),
+    updatePin: (pin) => dispatch(updatePin(pin)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardList)

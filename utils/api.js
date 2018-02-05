@@ -37,7 +37,7 @@ async function addPin(pin) {
 		}),
 	}
 
-	const res = await fetch(`{baseURL}/pin/new`)
+	const res = await fetch(`${baseURL}/pin/new`)
 	const json = await res.json()
 
 	return json
