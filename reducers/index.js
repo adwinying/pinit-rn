@@ -32,6 +32,7 @@ export default function reducers(state = initialState, action) {
 		case "FETCH_PINS_REJECTED":
 		case "FETCH_PROFILE_REJECTED":
 		case "UPDATE_PIN_REJECTED":
+		case "DELETE_PIN_REJECTED":
 			return {
 				...state,
 				isFetching: false,
@@ -51,7 +52,6 @@ export default function reducers(state = initialState, action) {
 
 		case "UPDATE_PIN_FULFILLED":
 			if (action.payload.success) {
-				console.log(action.payload)
 				return {
 					...state,
 					pins: state.pins.map(pin => 
@@ -64,6 +64,25 @@ export default function reducers(state = initialState, action) {
 					hasError: true,
 					errMessage: action.payload.message
 				}
+			}
+
+		case "DELETE_PIN_PENDING":
+			return {
+				...state,
+				pins: state.pins.filter(pin => 
+					pin._id !== action.payload)
+			}
+			return state
+
+		case "DELETE_PIN_FULFILLED":
+			if (!action.payload.success) {
+				return {
+					...state,
+					hasError: true,
+					errMessage: action.payload.message
+				}
+			} else {
+				return state
 			}
 
 		default:

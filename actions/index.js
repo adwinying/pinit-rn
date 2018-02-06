@@ -20,3 +20,13 @@ export function updatePin(pin) {
 		payload: api.updatePin(pin),
 	}
 }
+
+export function deletePin(pinId) {
+	return {
+		type: "DELETE_PIN",
+		payload: {
+			promise: api.deletePin(pinId),
+			data: pinId,
+		},
+	}
+}

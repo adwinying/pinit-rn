@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: primaryColor,
     marginLeft: 8,
   },
   likeButtonText: {

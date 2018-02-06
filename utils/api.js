@@ -63,7 +63,7 @@ async function deletePin(pinId) {
 		method: 'DELETE',
 	}
 
-	const res = await fetch(`${baseURL}/pin/${pinId}`)
+	const res = await fetch(`${baseURL}/pin/${pinId}`, init)
 	const json = await res.json()
 
 	return json

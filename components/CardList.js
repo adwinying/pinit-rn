@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { View, FlatList, ActivityIndicator, StyleSheet } from 'react-native'
-import { fetchPins, updatePin } from '../actions'
+import { fetchPins, updatePin, deletePin } from '../actions'
 
 import Card from './Card'
 
@@ -11,7 +11,6 @@ class CardList extends React.Component {
 	}
 
 	handleLikeButton = (pin) => {
-		console.log('like button toggled')
     const updatedPin = {
       ...pin,
       likedBy: pin.didLiked ? 
@@ -23,7 +22,7 @@ class CardList extends React.Component {
 	}
 
 	handleDeleteButton = (pin) => {
-		console.log('delete button pressed', pin)
+    this.props.deletePin(pin._id)
 	}
 
 	render() {
@@ -86,6 +85,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchPins: () => dispatch(fetchPins()),
     updatePin: (pin) => dispatch(updatePin(pin)),
+    deletePin: (pin) => dispatch(deletePin(pin)),
   }
 }
 
